@@ -84,10 +84,10 @@ Para rodar o **Aerocode** em sua máquina, siga os passos abaixo:
 
 ```bash
 # 1. Clone o repositório
-git clone [https://github.com/moreiragu/av2.git](https://github.com/moreiragu/av2.git)
+git clone https://github.com/moreiragu/av2.git
 
 # 2. Acesse o diretório do projeto
-cd aerocode
+cd av2
 
 # 3. Instale as dependências
 npm install
