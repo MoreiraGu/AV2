@@ -1,0 +1,74 @@
+.layout-content {
+  flex: 1;
+  padding-top: 60px; /* altura da navbar */
+  display: flex;
+  overflow: hidden;
+}
+.layout-content {
+  display: flex;
+  flex: 1;
+  margin-top: 60px; 
+  width: 100%;
+  overflow: hidden;
+  min-height: calc(100vh - 60px);
+}
+
+
+.layout-content.with-sidebar .main-content {
+  margin-left: 260px; 
+}
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #0047b3, #0069ff);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 22px;
+  box-shadow: 4px 0 16px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+.sidebar a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.25rem;
+  padding: 16px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  transform: translateX(6px);
+}
+
+.sidebar a.active {
+  background-color: rgba(255, 255, 255, 0.25);
+  font-weight: 700;
+  box-shadow: inset 2px 0 0 #ffffff;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  width: 100%;
+  min-width: 0;
+}

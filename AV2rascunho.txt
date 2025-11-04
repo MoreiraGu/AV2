@@ -1,0 +1,118 @@
+desenvolver a gui baseado na aplicação de pagina unica - SPA
+
+flux - redux, ver oque é
+
+toda logica de appresentação e navegação sob resposabilidade do front end
+
+1 passo, construção da wireframe, elaborat todas imagens que compõe o wireframe da gui,
+(servir como guia para organização de conteudos e funcionalidades!!!)
+
+escrever um pdf, ocm as imagens, a descrição dos requisitos e entendimento do publico alvo e dos objeitovs do projeto, além disso, escrever o fluxo de navegação e a hierarquia de informações, determtinando quais elementos devem aparecer e em que ordem
+
+seu relatorio deve conter imagens como da figura 1 e 2
+
+(ler quais as funções da figura 1 e 2, mt importante, por as 2 no pdf final)
+
+obviamente fazer com react
+
+telas e conteudos da telas
+
+o login ja é concedido como base pro cliente admin
+preciso criar uma tela de login (ja é entregue diretamente)
+preciso criar um menu inicial que tenha
+cadastro de funcionario
+cadastro de aeronave ja cadastra cliente
+    cadastro de etapa, peças e testes
+criação de relatorio
+
+
+menu aeronave- cadastrar aeronave, listar aeronave, voltar
+
+cadastrar aeronave- codigo, modelo, tipo de aeronave (comercial ou militar), capacidade, alcance, data de entrega (dados do cliente - nome, email, telefone) NO FINAL SEMPRE TER CONFIRMACAO Q FOI CRIADO
+listar aeronave - (lista as aeronaves Codigo: 04 | Modelo: 02 | Tipo: MILITAR
+Cliente: a | Email: a | Telefone: a
+Data de entrega: 2)
+
+voltar
+
+    menu peças - cadastrar peça , listar peças, atualizar status de peça, voltar
+
+        cadastrar peça - nome da peça, tipo de peça: (nacional, importada), fornecedor, (seleção de aeronave pra anexar a peça) CONFIRMAÇÃO QUE FOI CRIADO
+        listar peças - (lista as peças e suas aeronaves anexadas)
+        Codigo: 04 | Modelo: 02 | Tipo: MILITAR
+Cliente: a | Email: a | Telefone: a
+Data de entrega: 2
+        atualizar status de peça - aparece o status, (peça, status, aeronave) e as opções de peças, sendo as 3 opções em producao, em transporte ou pronta. - TER CONFIRMAÇÃO 
+        (opcional futuro, add pra uma peça em transporte nao poder voltar e nem a pronta poder voltar)
+
+    menu etapa - cadastrar etapa, listar etapas, iniciar etapa, finalizar etapa, voltar
+
+        cadastrar etapa - nome da etapa, prazo, aeronave disponiveis, selecionar funcionarios associados ao projeto TER CONFIRMAÇÃO 
+        listar etapa (lista todos os dados das etapas)
+        iniciar etapa - lista as etapas pendentes, e ao escolher uma etapa, ela vai pra status de em andamento - TER CONFIRMAÇÃO 
+        finalizar - lista as etapas em andamento, e ao escolher uma etapa, ela vai pra status de concluida - TER CONFIRMAÇÃO 
+        detalhes : as etapas conforme vao indo nao podem voltar
+
+    menu testes - registrar teste, listar teste, voltar
+
+        registrar teste - selecionar aeronave, tipo de teste (eletrico, hidraulico, aerodinamico), resultado (aprovado/reprovado) TER CONFIRMAÇÃO 
+        listar testes (lista os testes Aeronave: 04 | Tipo: ELETRICO | Resultado: APROVADO)
+
+
+    
+
+menu funcionario - cadastrar funcionario, listar funcionarios, voltar
+
+cadastrar funcionario - id, nome, telefone, endereço, usuario, senha, nivel de permissão  NO FINAL SEMPRE TER CONFIRMACAO Q FOI CRIADO
+listar funcionario - (lista os funcionarios)
+voltar
+
+
+menu relatorio - gerar relatorio de aeronave, listar relatorios, voltar
+    gerar relatorio - escolhe a aeronave pelo numero, relatorio é gerado (se nao tiver algo, aparece que nao tem)
+===== RELATÓRIO =====
+Aeronave: 04 - 02
+Tipo: MILITAR | Capacidade: 1 | Alcance: 2
+Data de Entrega: 2
+Cliente: a | Email: a | Telefone: a
+
+--- Peças ---
+1. 1 | Tipo: IMPORTADA | Fornecedor: 2 | Status: EM_PRODUCAO
+
+--- Etapas ---
+1. 1 | Prazo: 30/02/2004 | Status: CONCLUIDA
+   Funcionários: Nenhum
+2. df | Prazo: fd | Status: PENDENTE
+   Funcionários: 323
+
+--- Testes ---
+1. Tipo: ELETRICO | Resultado: APROVADO
+
+    listar relatorios -  
+
+    ===== RELATÓRIO =====
+Aeronave: 04 - 02
+Tipo: MILITAR | Capacidade: 1 | Alcance: 2
+Data de Entrega: 2
+Cliente: a | Email: a | Telefone: a
+
+--- Peças ---
+1. 1 | Tipo: IMPORTADA | Fornecedor: 2 | Status: EM_PRODUCAO
+
+--- Etapas ---
+1. 1 | Prazo: 30/02/2004 | Status: CONCLUIDA
+   Funcionários: Nenhum
+2. df | Prazo: fd | Status: PENDENTE
+   Funcionários: 323
+
+--- Testes ---
+1. Tipo: ELETRICO | Resultado: APROVADO
+
+(mostra todos os relatorios)
+
+
+por ultimo, sair 
+
+TER CONFIRMAÇÃO EM TODAS AS AÇOES DE REGISTRO, DE LOGIN, TODOS OS BOTOES DE AÇÃO
+
+colocar também que por ter todas as funcionalidades na tela admin, nao criei a funcionarios

@@ -1,0 +1,135 @@
+.peca-container {
+  background-color: #ffffff;
+  padding: 40px;
+  margin: 30px auto;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.peca-container h1 {
+  color: #0077ff;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.peca-container h3 {
+  margin-top: 25px;
+  color: #333;
+  border-bottom: 1px solid #0077ff44;
+  padding-bottom: 6px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.peca-container input,
+.peca-container select {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.peca-container input:focus,
+.peca-container select:focus {
+  border-color: #0077ff;
+  box-shadow: 0 0 4px rgba(0, 119, 255, 0.3);
+  outline: none;
+}
+
+.peca-container button {
+  background-color: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.peca-container button:hover {
+  background-color: #005fd1;
+  transform: scale(1.03);
+}
+
+.peca-container button:active {
+  background-color: #0049a3;
+  transform: scale(0.98);
+}
+
+.peca-container .botoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.peca-container table {
+  width: 100%;
+  max-width: 850px;
+  border-collapse: collapse;
+  background-color: #f8faff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.peca-container th,
+.peca-container td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e3e9ff;
+}
+
+.peca-container th {
+  background-color: #0077ff;
+  color: white;
+  font-weight: 600;
+}
+
+.peca-container tr:hover {
+  background-color: #e9f2ff;
+  cursor: pointer;
+}
+
+.peca-detalhes p {
+  margin: 6px 0;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+.peca-detalhes strong {
+  color: #0077ff;
+}
+
+.peca-container p {
+  color: #555;
+  font-size: 1.05rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.peca-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.peca-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 15px;
+}

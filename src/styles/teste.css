@@ -1,0 +1,129 @@
+.teste-container {
+  background-color: #ffffff;
+  padding: 50px;
+  margin: 40px auto;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.teste-container h1 {
+  color: #0077ff;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.teste-container h3 {
+  margin-top: 30px;
+  color: #333;
+  border-bottom: 1px solid #0077ff44;
+  padding-bottom: 8px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.teste-container select {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.teste-container select:focus {
+  border-color: #0077ff;
+  box-shadow: 0 0 5px rgba(0, 119, 255, 0.3);
+  outline: none;
+}
+
+.teste-container button {
+  background-color: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 26px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.teste-container button:hover {
+  background-color: #005fd1;
+  transform: scale(1.03);
+}
+
+.teste-container button:active {
+  background-color: #0049a3;
+  transform: scale(0.98);
+}
+
+.teste-container ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 850px;
+  background-color: #f8faff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.teste-container li {
+  padding: 16px 18px;
+  border-bottom: 1px solid #e3e9ff;
+  font-size: 1rem;
+  color: #444;
+}
+
+.teste-container li:last-child {
+  border-bottom: none;
+}
+
+.teste-container li:hover {
+  background-color: #e9f2ff;
+  cursor: pointer;
+}
+
+.teste-container p {
+  color: #555;
+  font-size: 1.1rem;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.teste-container .botoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.teste-container button + button {
+  margin-left: 0;
+}
+
+.teste-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 15px;
+}
+
+.teste-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
