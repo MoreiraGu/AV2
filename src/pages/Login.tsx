@@ -7,25 +7,43 @@ export default function Login() {
   const { setUsuarioLogado } = useContext(AppContext)!;
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (usuario === "admin" && senha === "admin") {
-      setUsuarioLogado({
-        id: "0",
-        nome: "Admin",
-        telefone: "",
-        endereco: "",
-        usuario,
-        senha,
-        nivelPermissao: "ADMINISTRADOR",
-      });
-      alert("Login bem-sucedido!");
-      navigate("/aeronave");
-    } else {
-      alert("Usuário ou senha inválidos");
+ const handleLogin = async () => {
+  if (!usuario || !senha) {
+    alert("Preencha usuário e senha");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const response = await fetch("http://localhost:3000/funcionarios/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ usuario, senha }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Usuário ou senha inválidos");
     }
-  };
+
+    const data = await response.json();
+
+    setUsuarioLogado(data.funcionario); // salva apenas o funcionário
+
+    alert("Login bem-sucedido!");
+    navigate("/aeronave");
+  } catch (error: any) {
+    alert(error.message || "Erro ao tentar fazer login");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div>
@@ -48,8 +66,12 @@ export default function Login() {
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
         />
-        <button className="login-button" onClick={handleLogin}>
-          Entrar
+        <button
+          className="login-button"
+          onClick={handleLogin}
+          disabled={loading}
+        >
+          {loading ? "Entrando..." : "Entrar"}
         </button>
       </div>
     </div>

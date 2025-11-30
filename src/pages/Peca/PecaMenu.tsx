@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/peca.css";
 
 export default function PecaMenu() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // <- certifique-se de que está dentro do componente
 
   return (
     <div className="peca-container">

@@ -6,13 +6,16 @@ export default function RelatorioMenu() {
 
   return (
     <div className="relatorio-container">
-     <h1>Menu de Relatórios</h1>
+      <h1>Menu de Relatórios</h1>
 
-    <div className="relatorio-botoes">
-        <button onClick={() => navigate("/relatorio/gerar")}>Gerar Relatório</button>
-        <button onClick={() => navigate("/relatorio/listar")}>Listar Relatórios</button>
+      <div className="relatorio-botoes">
+        <button onClick={() => navigate("/relatorio/gerar")}>
+          Gerar Relatório
+        </button>
+        <button onClick={() => navigate("/relatorio/listar")}>
+          Listar Relatórios
+        </button>
+      </div>
     </div>
-</div>
-
   );
 }

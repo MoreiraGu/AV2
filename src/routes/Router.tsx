@@ -51,8 +51,7 @@ export default function Router() {
 <Route path="/etapa" element={<MainLayout showSidebar><EtapaMenu /></MainLayout>} />
 <Route path="/etapa/cadastrar" element={<MainLayout showSidebar><CadastroEtapa /></MainLayout>} />
 <Route path="/etapa/listar" element={<MainLayout showSidebar><ListarEtapas /></MainLayout>} />
-<Route path="/etapa/detalhes/:index" element={<MainLayout showSidebar><DetalhesEtapa /></MainLayout>} />
-
+<Route path="/etapa/detalhes/:nome/:aeronaveCodigo" element={<MainLayout showSidebar><DetalhesEtapa /></MainLayout>} />
 <Route path="/peca" element={<MainLayout showSidebar><PecaMenu /></MainLayout>} />
 <Route path="/peca/cadastrar" element={<MainLayout showSidebar><CadastroPeca /></MainLayout>} />
 <Route path="/peca/listar" element={<MainLayout showSidebar><ListarPeca /></MainLayout>} />

@@ -1,28 +1,51 @@
-import { useState, useContext } from "react";
+// src/pages/Peca/CadastroPeca.tsx
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext, Peca, TipoPeca } from "../../context/AppContext";
+import axios from "axios";
 import "../../styles/peca.css";
 
+const API_URL = "http://localhost:3000/pecas"; // endpoint da API
+const API_AERONAVES = "http://localhost:3000/aeronaves";
+
 export default function CadastroPeca() {
-  const { addPeca, aeronaves } = useContext(AppContext)!;
   const navigate = useNavigate();
 
   const [nome, setNome] = useState("");
-  const [tipo, setTipo] = useState<TipoPeca>("NACIONAL");
+  const [tipo, setTipo] = useState<"NACIONAL" | "IMPORTADA">("NACIONAL");
   const [fornecedor, setFornecedor] = useState("");
   const [aeronaveCodigo, setAeronaveCodigo] = useState("");
+  const [aeronaves, setAeronaves] = useState<any[]>([]);
 
-  const handleSubmit = () => {
-    const novaPeca: Peca = {
-      nome,
-      tipo,
-      fornecedor,
-      aeronaveCodigo,
-      status: "EM_PRODUCAO"
-    };
-    addPeca(novaPeca);
-    alert("Peça cadastrada com sucesso!");
-    navigate("/peca");
+  useEffect(() => {
+    async function fetchAeronaves() {
+      try {
+        const res = await axios.get(API_AERONAVES);
+        setAeronaves(res.data);
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao buscar aeronaves.");
+      }
+    }
+    fetchAeronaves();
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      const novaPeca = {
+        nome,
+        tipo,
+        fornecedor,
+        aeronaveCodigo,
+        status: "EM_PRODUCAO",
+      };
+
+      await axios.post(API_URL, novaPeca);
+      alert("Peça cadastrada com sucesso!");
+      navigate("/peca");
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao cadastrar peça.");
+    }
   };
 
   return (
@@ -38,7 +61,7 @@ export default function CadastroPeca() {
         />
 
         <h3>Tipo da peça</h3>
-        <select value={tipo} onChange={e => setTipo(e.target.value as TipoPeca)}>
+        <select value={tipo} onChange={e => setTipo(e.target.value as "NACIONAL" | "IMPORTADA")}>
           <option value="NACIONAL">Nacional</option>
           <option value="IMPORTADA">Importada</option>
         </select>

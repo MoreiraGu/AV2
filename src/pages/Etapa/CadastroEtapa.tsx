@@ -1,16 +1,46 @@
-import { useContext, useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext, Etapa } from "../../context/AppContext";
+import axios from "axios";
+import { StatusEtapa } from "../../types/enums";
 import "../../styles/Etapa.css";
 
+interface Aeronave {
+  codigo: string;
+  modelo: string;
+}
+
+interface Funcionario {
+  id: string;
+  nome: string;
+}
+
 export default function CadastroEtapa() {
-  const { aeronaves, funcionarios, addEtapa } = useContext(AppContext)!;
   const navigate = useNavigate();
 
   const [nome, setNome] = useState("");
   const [prazo, setPrazo] = useState("");
   const [aeronaveSelecionada, setAeronaveSelecionada] = useState("");
   const [funcionariosSelecionados, setFuncionariosSelecionados] = useState<string[]>([]);
+  const [aeronaves, setAeronaves] = useState<Aeronave[]>([]);
+  const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
+
+  // Buscar aeronaves e funcionários ao carregar
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [aeronavesRes, funcionariosRes] = await Promise.all([
+          axios.get("http://localhost:3000/aeronaves"),
+          axios.get("http://localhost:3000/funcionarios")
+        ]);
+        setAeronaves(aeronavesRes.data);
+        setFuncionarios(funcionariosRes.data);
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao carregar dados do backend");
+      }
+    }
+    fetchData();
+  }, []);
 
   const toggleFuncionario = (id: string) => {
     if (funcionariosSelecionados.includes(id)) {
@@ -20,17 +50,25 @@ export default function CadastroEtapa() {
     }
   };
 
-  const handleSubmit = () => {
-    const novaEtapa: Etapa = {
-      nome,
-      prazo,
-      aeronaveCodigo: aeronaveSelecionada,
-      funcionarios: funcionariosSelecionados,
-      status: "PENDENTE"
-    };
-    addEtapa(novaEtapa);
-    alert("Etapa cadastrada!");
-    navigate("/etapa");
+  const handleSubmit = async () => {
+    if (!nome || !prazo || !aeronaveSelecionada) {
+      alert("Preencha todos os campos obrigatórios");
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://localhost:3000/etapas", {
+        nome,
+        prazo,
+        aeronaveCodigo: aeronaveSelecionada,
+        funcionarios: funcionariosSelecionados
+      });
+      alert("Etapa cadastrada com sucesso!");
+      navigate("/etapa/listar");
+    } catch (err: any) {
+      console.error(err);
+      alert(err.response?.data?.erro || "Erro ao cadastrar etapa");
+    }
   };
 
   return (
@@ -79,7 +117,7 @@ export default function CadastroEtapa() {
 
         <div className="etapa-buttons">
           <button onClick={handleSubmit}>Cadastrar</button>
-          <button onClick={() => navigate("/etapa")}>Voltar</button>
+          <button onClick={() => navigate("/etapa/listar")}>Voltar</button>
         </div>
       </div>
     </div>

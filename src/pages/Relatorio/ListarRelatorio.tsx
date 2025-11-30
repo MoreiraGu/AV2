@@ -1,15 +1,51 @@
-import { useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
+import { Aeronave, Peca, Etapa, Teste } from "../../context/AppContext";
 import "../../styles/relatorio.css";
 
 export default function ListarRelatorios() {
   const navigate = useNavigate();
-  const { aeronaves, pecas, etapas, testes } = useContext(AppContext)!;
+
+  const [aeronaves, setAeronaves] = useState<Aeronave[]>([]);
+  const [pecas, setPecas] = useState<Peca[]>([]);
+  const [etapas, setEtapas] = useState<Etapa[]>([]);
+  const [testes, setTestes] = useState<Teste[]>([]);
+
+  // Puxar dados da API
+  useEffect(() => {
+    const fetchDados = async () => {
+      try {
+        const [resAero, resPecas, resEtapas, resTestes] = await Promise.all([
+          fetch("http://localhost:3000/aeronaves"),
+          fetch("http://localhost:3000/pecas"),
+          fetch("http://localhost:3000/etapas"),
+          fetch("http://localhost:3000/testes")
+        ]);
+
+        const [dataAero, dataPecas, dataEtapas, dataTestes] = await Promise.all([
+          resAero.json(),
+          resPecas.json(),
+          resEtapas.json(),
+          resTestes.json()
+        ]);
+
+        setAeronaves(dataAero);
+        setPecas(dataPecas);
+        setEtapas(dataEtapas);
+        setTestes(dataTestes);
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      }
+    };
+
+    fetchDados();
+  }, []);
 
   return (
     <div className="relatorio-container">
       <h1>Listar Relatórios</h1>
+
+      {aeronaves.length === 0 && <p>Nenhuma aeronave encontrada.</p>}
 
       {aeronaves.map(relatorio => (
         <div key={relatorio.codigo} className="relatorio-detalhes">
@@ -43,9 +79,9 @@ export default function ListarRelatorios() {
         </div>
       ))}
 
-        <div className="relatorio-botoes">
-         <button onClick={() => navigate("/relatorio")}>Voltar</button>
-        </div>
+      <div className="relatorio-botoes">
+        <button onClick={() => navigate("/relatorio")}>Voltar</button>
+      </div>
     </div>
   );
 }

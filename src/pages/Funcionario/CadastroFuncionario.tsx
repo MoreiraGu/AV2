@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext, Funcionario } from "../../context/AppContext";
 import "../../styles/funcionario.css";
+import { cadastrarFuncionario } from "../../services/funcionarioService";
+
 
 export default function CadastroFuncionario() {
   const { addFuncionario } = useContext(AppContext)!;
@@ -16,26 +18,32 @@ export default function CadastroFuncionario() {
   const [nivelPermissao, setNivelPermissao] = useState<"ADMINISTRADOR" | "OPERADOR" | "ENGENHEIRO">("OPERADOR");
 
 
-  const handleSubmit = () => {
-    if (!id || !nome || !telefone || !endereco || !usuario || !senha) {
-      alert("Preencha todos os campos obrigatórios!");
-      return;
-    }
+const handleSubmit = async () => {
+  if (!id || !nome || !telefone || !endereco || !usuario || !senha) {
+    alert("Preencha todos os campos obrigatórios!");
+    return;
+  }
 
-    const novoFuncionario: Funcionario = {
-      id,
-      nome,
-      telefone,
-      endereco,
-      usuario,
-      senha,
-      nivelPermissao
-    };
-
-    addFuncionario(novoFuncionario);
-    alert("Funcionário criado com sucesso!");
-    navigate("/funcionario");
+  const novoFuncionario: Funcionario = {
+    id,
+    nome,
+    telefone,
+    endereco,
+    usuario,
+    senha,
+    nivelPermissao
   };
+
+  try {
+    const funcionarioCadastrado = await cadastrarFuncionario(novoFuncionario);
+    alert("Funcionário criado com sucesso!");
+    navigate("/funcionario"); // redireciona para a lista
+  } catch (error: any) {
+    alert(error.response?.data?.erro || "Erro ao cadastrar funcionário");
+  }
+};
+
+
 
   return (
     <div className="funcionario-container">

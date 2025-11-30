@@ -1,13 +1,24 @@
-import { useContext } from "react";
+import React, { useEffect, useState } from "react";
+import { listarFuncionarios } from "../../services/funcionarioService";
+import { Funcionario } from "../../context/AppContext"; // tipo do funcionário
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
 import "../../styles/funcionario.css";
 
 export default function ListarFuncionario() {
-  const { funcionarios } = useContext(AppContext)!;
+  const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
   const navigate = useNavigate();
 
-  return (
+  // Carregar funcionários da API ao montar o componente
+  useEffect(() => {
+    listarFuncionarios()
+      .then(setFuncionarios)
+      .catch(err => {
+        console.error("Erro ao carregar funcionários:", err);
+        alert("Erro ao carregar funcionários");
+      });
+  }, []);
+
+    return (
     <div className="funcionario-container">
       <h1>Lista de Funcionários</h1>
 
@@ -26,8 +37,8 @@ export default function ListarFuncionario() {
             </tr>
           </thead>
           <tbody>
-            {funcionarios.map((f, index) => (
-              <tr key={index}>
+            {funcionarios.map((f) => (
+              <tr key={f.id}>
                 <td>{f.id}</td>
                 <td>{f.nome}</td>
                 <td>{f.telefone}</td>

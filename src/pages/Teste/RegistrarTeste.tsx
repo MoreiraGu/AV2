@@ -1,23 +1,61 @@
-import { useState, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
+import { Teste, Aeronave } from "../../context/AppContext";
 import "../../styles/Teste.css";
 
 export default function RegistrarTeste() {
   const navigate = useNavigate();
-  const { addTeste, aeronaves } = useContext(AppContext)!;
 
+  const [aeronaves, setAeronaves] = useState<Aeronave[]>([]);
   const [aeronave, setAeronave] = useState("");
-  const [tipoTeste, setTipoTeste] = useState<"ELETRICO" | "HIDRAULICO" | "AERODINAMICO">("ELETRICO");
-  const [resultado, setResultado] = useState<"APROVADO" | "REPROVADO">("APROVADO");
+  const [tipo, setTipo] = useState<Teste["tipo"]>("ELETRICO");
+  const [resultado, setResultado] = useState<Teste["resultado"]>("APROVADO");
 
-  const handleSubmit = () => {
-    if (window.confirm("Confirma o registro deste teste?")) {
-      addTeste({ id: Date.now().toString(), aeronave, tipoTeste, resultado });
-      alert("Teste registrado com sucesso!");
-      navigate("/teste");
+  useEffect(() => {
+    const fetchAeronaves = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/aeronaves");
+        const data: Aeronave[] = await res.json();
+        setAeronaves(data);
+      } catch (err) {
+        console.error(err);
+        alert("Não foi possível carregar aeronaves.");
+      }
+    };
+    fetchAeronaves();
+  }, []);
+
+const handleSubmit = async () => {
+  if (!aeronave) return alert("Selecione uma aeronave!");
+  if (!window.confirm("Confirma o registro deste teste?")) return;
+
+  // Objeto correto para o backend
+    const novoTeste = {
+      tipo,
+      resultado,
+      aeronaveCodigo: aeronave,
+    };
+
+  try {
+    const res = await fetch("http://localhost:3000/testes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(novoTeste),
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.erro || "Erro ao registrar teste");
     }
-  };
+
+    alert("Teste registrado com sucesso!");
+    navigate("/teste");
+  } catch (err: any) {
+    console.error(err);
+    alert(`Falha ao registrar teste: ${err.message}`);
+  }
+};
+
 
   return (
     <div className="teste-container">
@@ -34,8 +72,8 @@ export default function RegistrarTeste() {
         </select>
 
         <select
-          value={tipoTeste}
-          onChange={e => setTipoTeste(e.target.value as "ELETRICO" | "HIDRAULICO" | "AERODINAMICO")}
+          value={tipo}
+          onChange={e => setTipo(e.target.value as Teste["tipo"])}
         >
           <option value="ELETRICO">Elétrico</option>
           <option value="HIDRAULICO">Hidráulico</option>
@@ -44,7 +82,7 @@ export default function RegistrarTeste() {
 
         <select
           value={resultado}
-          onChange={e => setResultado(e.target.value as "APROVADO" | "REPROVADO")}
+          onChange={e => setResultado(e.target.value as Teste["resultado"])}
         >
           <option value="APROVADO">Aprovado</option>
           <option value="REPROVADO">Reprovado</option>
